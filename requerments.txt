@@ -1,0 +1,3 @@
+pip install soundfile sounddevice
+sudo apt-get install portaudio19-dev
+sudo usermod -aG audio $USER

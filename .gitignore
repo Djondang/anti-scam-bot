@@ -1,0 +1,29 @@
+# Ignore Python virtual environment
+.venv/
+
+# Ignore macOS system files
+._*
+
+# Ignore temporary files
+*.tmp
+*.swp
+*.bak
+
+# Ignore compiled Python files
+__pycache__/
+*.pyc
+
+# Ignore coverage reports
+coverage/
+*.cover
+
+# Ignore sensitive files
+api_keys.json
+key.json
+
+# Ignore audio output files
+output.mp3
+voice.flac
+
+# Ignore personal folder
+Perso/
