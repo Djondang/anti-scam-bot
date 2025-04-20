@@ -126,13 +126,18 @@ python app.py
 
 ```mermaid
 flowchart TD
-  Micro -->|PCM| voice.record_chunk
-  voice.record_chunk --> voice.detect_silence
-  voice --> voice.transcribe --> [ STT ] 
-  [ STT ] --> bot_core.conversation_stream
-  bot_core --> llm_client.chat_completion [LLM]
-  [LLM] --> utils.first_sentence → utils.trim_reply → utils.insert_hesitations
-  → emotion.inject_prosody → voice.speak [TTS] → Haut‑parleur
+  Micro -->|PCM| record_chunk["record_chunk"]
+  record_chunk --> detect_silence["detect_silence"]
+  detect_silence --> transcribe["transcribe"]
+  transcribe --> STT["STT"]
+  STT --> conversation_stream["conversation_stream"]
+  conversation_stream --> chat_completion["chat_completion"]
+  chat_completion --> first_sentence["first_sentence"]
+  first_sentence --> trim_reply["trim_reply"]
+  trim_reply --> insert_hesitations["insert_hesitations"]
+  insert_hesitations --> inject_prosody["inject_prosody"]
+  inject_prosody --> speak["speak"]
+  speak --> Haut_parleur["Haut‑parleur"]
 ```
 
 ### `src/prompts.py`
