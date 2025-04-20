@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Anti‑Scam Bot – Live</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f0f2f5; }
+    h1 { text-align:center; padding:20px; margin:0; background:#007bff; color:white; }
+    .chat-container { width:100%; max-width:600px; margin:20px auto; background:#fff;
+                      border:1px solid #ccc; border-radius:8px; padding:10px;
+                      box-shadow:0 2px 4px rgba(0,0,0,0.1);
+                    }
+    .controls { text-align:center; margin-bottom:10px; }
+    .controls button { margin:0 5px; padding:8px 16px;
+                       border:none; border-radius:4px; cursor:pointer;
+                     }
+    .start { background:#28a745; color:#fff; }
+    .stop  { background:#dc3545; color:#fff; }
+
+    .message { display:flex; align-items:flex-start; margin-bottom:10px; }
+    .message.escroc .avatar { background:#e1f5fe; }
+    .message.michel .avatar { background:#e8f5e9; order:2; }
+    .avatar {
+      width:40px; height:40px; border-radius:50%; flex-shrink:0;
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.2em; color:#555; margin-right:10px;
+    }
+    .message.michel .avatar { margin-right:0; margin-left:10px; }
+    .content {
+      max-width:80%; padding:8px 12px; border-radius:8px;
+      background:#e1f5fe; color:#000; position:relative;
+    }
+    .message.michel .content { background:#e8f5e9; text-align:right; }
+  </style>
+</head>
+<body>
+  <h1>Anti‑Scam Bot – Live</h1>
+  <div class="chat-container">
+    <div class="controls">
+      <button id="startBtn" class="start">Démarrer</button>
+      <button id="stopBtn" class="stop">Arrêter</button>
+    </div>
+    <div id="chat-messages"></div>
+  </div>
+
+  <script>
+    let evt = null;
+    const chat = document.getElementById("chat-messages");
+    const startBtn = document.getElementById("startBtn");
+    const stopBtn  = document.getElementById("stopBtn");
+
+    function appendMessage(role, text) {
+      const msg = document.createElement("div");
+      msg.className = `message ${role}`;
+      const avatar = document.createElement("div"); avatar.className = "avatar";
+      avatar.textContent = role === "escroc" ? "🎙️" : "🤖";
+      const bubble = document.createElement("div"); bubble.className = "content";
+      bubble.textContent = text;
+      msg.appendChild(avatar);
+      msg.appendChild(bubble);
+      chat.appendChild(msg);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    startBtn.addEventListener("click", () => {
+      fetch('/start', { method: 'POST' });
+      if (evt) evt.close();
+      chat.innerHTML = '';
+      evt = new EventSource('/stream');
+      evt.onmessage = e => {
+        const { role, text } = JSON.parse(e.data);
+        appendMessage(role, text);
+      };
+      evt.onerror = () => { console.error("SSE perdu"); evt.close(); };
+    });
+
+    stopBtn.addEventListener("click", () => {
+      fetch('/stop', { method: 'POST' });
+      if (evt) evt.close();
+    });
+  </script>
+</body>
+</html>

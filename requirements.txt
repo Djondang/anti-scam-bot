@@ -1,0 +1,38 @@
+###########################################################################
+# Anti‑Scam Bot – dépendances Python                                      #
+# (les outils système externes sont listés plus bas)                      #
+###########################################################################
+
+# ─── LLM & API HF ────────────────────────────────────────────────────────
+huggingface_hub>=0.30.2          # streaming InferenceClient
+
+# ─── Google Cloud : STT + TTS ────────────────────────────────────────────
+google-cloud-speech>=2.32.0      # Speech‑to‑Text
+google-cloud-texttospeech>=2.26.0 # Text‑to‑Speech
+
+# ─── I/O audio temps réel ───────────────────────────────────────────────
+sounddevice>=0.5.1               # enregistrement / lecture PortAudio
+soundfile>=0.13.1                # lecture/écriture FLAC/WAV/AIFF
+pydub>=0.25.1                    # découpages + détection de silence
+webrtcvad-wheels>=2.0.14         # VAD pré‑compilé (Py3.12 ready)
+
+# ─── Web / Interface Flask ──────────────────────────────────────────────
+flask>=3.0                       # mini tableau de bord SSE
+
+# ─── Utilitaires ────────────────────────────────────────────────────────
+python-dotenv>=1.1.0             # charge les variables du .env
+numpy>=2.2.5                     # dépendance son / audio
+
+# ─── Outils de build (pkg_resources, roues) ─────────────────────────────
+setuptools>=68.2.0
+wheel
+
+# sudo apt install ffmpeg portaudio19-dev mpg123   # Ubuntu / Debian
+
+###########################################################################
+# À installer via APT / Homebrew / Chocolatey (PAS via pip)               #
+# ffmpeg              ← pydub en a besoin pour lire/écrire MP3            #
+# portaudio19-dev      ← backend ALSA / PulseAudio pour sounddevice       #
+# mpg123              ← lecture simple du MP3 généré (ou utilise sd.play) #
+# pavucontrol         ← (optionnel) GUI pour choisir la sortie audio      #
+###########################################################################
