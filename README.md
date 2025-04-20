@@ -60,7 +60,7 @@ L’objectif est **de maximiser le temps perdu** par l’arnaqueur, tout en rest
 ## Installation
 
 ```bash
-git clone https://github.com/votre‑org/anti‑scam‑bot.git
+git clone https://github.com/Djondang/anti-scam-bot.git
 cd anti‑scam‑bot
 
 # 1. Environnement virtuel
