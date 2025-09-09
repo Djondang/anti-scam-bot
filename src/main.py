@@ -40,7 +40,7 @@ async def loop_call() -> None:
             if idle_turns >= IDLE_LIMIT:
                 idle_turns = 0
                 reply = insert_hesitations("Oh, à propos… vous aimez les timbres ?")
-                print(f"🤖 Michel : {reply}")
+                print(f"Michel : {reply}")
                 speak(inject_prosody(reply))
             continue
 
@@ -53,7 +53,7 @@ async def loop_call() -> None:
         if is_greeting_only(user_text):
             idle_turns = 0
             reply = insert_hesitations("Bonjour !")
-            print(f"🤖 Michel : {reply}")
+            print(f"Michel : {reply}")
             speak(inject_prosody(reply))
             continue
 
@@ -63,7 +63,7 @@ async def loop_call() -> None:
 
         # 6. Dialogue normal : reset idle, envoie au LLM
         idle_turns = 0
-        print(f"🎙️ Escroc : {user_text}")
+        print(f"Escroc : {user_text}")
         messages.append({"role": "user", "content": user_text})
         
         reply = await asyncio.to_thread(chat_completion, messages)
@@ -80,7 +80,7 @@ async def loop_call() -> None:
         reply = to_ssml(reply)             # 4. convertit en SSML
         ssml_reply = inject_prosody(reply) # 5. enveloppe en SSML
 
-        print(f"🤖 Michel : {reply}")
+        print(f"Michel : {reply}")
         messages.append({"role": "assistant", "content": reply})
         speak(ssml_reply)
 
