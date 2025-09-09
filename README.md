@@ -24,8 +24,7 @@
    - [`bot_core.py`](#bot_corepy)  
    - [`app.py`](#apppy)  
    - [`templates/index.html`](#templatesindexhtml)  
-7. [Roadmap & améliorations futures](#roadmap--améliorations-futures)  
-8. [Licence](#licence)  
+7. [Roadmap & améliorations futures](#roadmap--améliorations-futures)   
 
 ---
 
@@ -116,8 +115,8 @@ python app.py
 
 - Ouvre http://localhost:8000  
 - Clique **Démarrer**, parle dans ton micro ; l’interface affiche en temps réel :
-  - 🎙️ Escroc : …  
-  - 🤖 Michel : …  
+  - Escroc : …  
+  - Michel : …  
 - Clique **Arrêter** pour couper la session.
 
 ---
